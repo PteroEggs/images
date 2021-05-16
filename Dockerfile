@@ -1,4 +1,4 @@
-FROM        openjdk:11-slim
+FROM        openjdk:16-slim
 
 LABEL       author="harrydev" maintainer="freelance@harrydev.me"
 
