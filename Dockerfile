@@ -1,9 +1,9 @@
-FROM        python:3.8-slim
+FROM        node:10-buster-slim
 
 LABEL       author="harrydev" maintainer="freelance@harrydev.me"
 
 RUN         apt update \
-            && apt -y install git gcc g++ ca-certificates dnsutils curl iproute2 ffmpeg procps \
+            && apt -y install ffmpeg iproute2 git ca-certificates dnsutils python3 build-essential \
             && useradd -m -d /home/container container
 
 USER        container
