@@ -1,9 +1,9 @@
-FROM        node:14-buster-slim
+FROM        node:15-buster-slim
 
 LABEL       author="harrydev" maintainer="freelance@harrydev.me"
 
 RUN         apt update \
-            && apt -y install ffmpeg iproute2 git sqlite3 python3 ca-certificates dnsutils build-essential \
+            && apt -y install ffmpeg iproute2 git sqlite3 python3 ca-certificates tzdata dnsutils build-essential \
             && useradd -m -d /home/container container
 
 USER        container
