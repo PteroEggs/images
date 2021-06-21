@@ -1,19 +1,25 @@
-FROM        openjdk:16-slim
+FROM debian:buster-slim
 
-LABEL       author="harrydev" maintainer="freelance@harrydev.me"
+LABEL author="harrydev" maintainer="harry@tvhg.club"
 
-RUN apt-get update -y \
- && apt-get install -y curl ca-certificates openssl git tar sqlite fontconfig tzdata iproute2 \
- && useradd -d /home/container -m container
- 
-USER container
-ENV  USER=container HOME=/home/container
+ENV DEBIAN_FRONTEND noninteractive
 
-USER        container
-ENV         USER=container HOME=/home/container
+RUN useradd -m -d /home/container -s /bin/bash container
 
-WORKDIR     /home/container
+RUN ln -s /home/container/ /nonexistent
 
-COPY        ./entrypoint.sh /entrypoint.sh
+ENV USER=container HOME=/home/container
 
-CMD         ["/bin/bash", "/entrypoint.sh"]
+RUN apt update \
+ && apt upgrade -y
+
+RUN apt install -y gcc g++ libgcc1 lib32gcc1 libc++-dev gdb libc6 git wget curl tar zip unzip binutils xz-utils liblzo2-2 cabextract iproute2 net-tools netcat telnet libatomic1 libsdl1.2debian libsdl2-2.0-0 \
+    libfontconfig libicu63 icu-devtools libunwind8 libssl-dev sqlite3 libsqlite3-dev libmariadbclient-dev libduktape203 locales ffmpeg gnupg2 apt-transport-https software-properties-common ca-certificates tzdata
+
+RUN update-locale lang=en_GB.UTF-8 \
+ && dpkg-reconfigure --frontend noninteractive locales
+
+WORKDIR /home/container
+
+COPY ./entrypoint.sh /entrypoint.sh
+CMD ["/bin/bash", "/entrypoint.sh"]
