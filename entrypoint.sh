@@ -1,5 +1,5 @@
 #!/bin/bash
 cd /home/container
 export INTERNAL_IP=`ip route get 1 | awk '{print $NF;exit}'`
-echo "Starting Minecraft Server..."
-eval "java -Xms128M -Xmx${SERVER_MEMORY}M -jar ${SERVER_JARFILE}"
+echo "Starting Bedrock Server..."
+eval "chmod +x bedrock_server; ./bedrock_server"
